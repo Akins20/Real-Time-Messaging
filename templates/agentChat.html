@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat with User</title>
+</head>
+<body>
+    <h1>Chat with User</h1>
+    <p>User ID: {{ user_id }}</p>
+    <div id="chat">
+        <ul id="messages"></ul>
+        <input id="message_input" autocomplete="off" autofocus placeholder="Type your message...">
+        <button id="send_message">Send</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+    <script>
+        // Add your JavaScript for handling real-time chat here
+        var socket = io.connect(
+        "http://" + document.domain + ":" + location.port
+      );
+
+      socket.on("message", function (data) {
+        var messageList = document.getElementById("messages");
+        var messageItem = document.createElement("li");
+        messageItem.innerHTML = data.message;
+        messageList.appendChild(messageItem);
+      });
+
+      function sendMessage() {
+        var messageInput = document.getElementById("message_input");
+        var message = messageInput.value;
+        socket.emit("message", { message: message });
+        messageInput.value = "";
+      }
+    </script>
+</body>
+</html>

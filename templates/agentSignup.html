@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Agent Signup</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #000000; /* Dark background */
+        color: #ffffff; /* White text */
+      }
+
+      /* Header Styles */
+      header {
+        background: linear-gradient(
+          to right,
+          #ff512f,
+          #f09819
+        ); /* Gradient background */
+        text-align: center;
+        padding: 20px 0;
+      }
+
+      .container {
+        display: block;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin: 10px;
+        text-align: center;
+        color: #ffffff; /* White text */
+      }
+
+      /* Button Styles */
+      button {
+        display: inline-block;
+        padding: 10px;
+        height: 45px;
+        width: 70px;
+        background: linear-gradient(
+          to right,
+          #ff512f,
+          #f09819
+        ); /* Gradient background */
+        color: #fff; /* White text */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      .button:hover {
+        background-color: #ff512f; /* Darken on hover */
+        transform: scale(1.05); /* Slight scale-up effect */
+      }
+
+      form {
+        margin-top: 20vh;
+      }
+      input {
+        border-color: transparent;
+        height: 30px;
+        width: 25vw;
+        background-color: #000000;
+        color: white;
+        border-bottom: #ffffff 2px solid;
+      }
+
+      label {
+        margin-right: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Agent Signup</h1>
+    {% if error_message %}
+    <p>{{ error_message }}</p>
+    {% endif %}
+    <div class="container">
+      <form method="POST">
+        <label for="agent_username">Username:</label>
+        <input
+          type="text"
+          id="agent_username"
+          name="agent_username"
+          required
+        /><br /><br />
+        <label for="agent_email">E-mail:</label>
+        <input
+          type="email"
+          id="agent_email"
+          name="agent_email"
+          required
+        /><br /><br />
+        <label for="agent_password">Password:</label>
+        <input
+          type="password"
+          id="agent_password"
+          name="agent_password"
+          required
+        /><br /><br />
+        <button type="submit" value="Login">Log in</button>
+      </form>
+    </div>
+  </body>
+</html>

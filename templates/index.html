@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Real-Time Chat</title>
+    <script
+      src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+      integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+        .chatBox{
+            background-color: aliceblue;
+            height: 40vh;
+            position: fixed;
+            border-radius: 10px;
+            width: 50vw;
+            border: solid 1px black;
+            padding: 2px;
+        }
+
+        h2{
+            position: relative;
+            background-color: white;
+            margin: 0px;
+            color: black;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .inputTab{
+            position: absolute;
+            top: 37vh;
+        }
+
+        ul{
+            list-style: none;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: absolute;
+            height: 30vh;
+        }
+
+        ul li{
+            background-color: white;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 10px;
+            width: 20vw;
+            padding: 10px;
+            margin: 15px;
+        }
+
+        input{
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 0;
+            border: none;
+            outline: none;
+            background-color: black;
+            height: 5vh;
+            width: 40vw;
+            color: white;
+            font-size: 16px;
+        }
+
+        button{
+            padding: 5px;
+            font-size: 20px;
+            width: 10.2vw;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 10px;
+            border: none;
+            background-color: rgb(105, 105, 253);
+        }
+    </style>
+  </head>
+  <body>
+    <div class="chatBox">
+        <h2>Real Time Messaging</h2>
+        <ul id="messages"></ul>
+    </div>
+    
+    <div class="inputTab">
+        <input id="message_input" autocomplete="off" /><button
+        onclick="sendMessage()"
+      >
+        Send
+      </button>
+    </div>
+   
+
+    <script>
+      var socket = io.connect(
+        "http://" + document.domain + ":" + location.port
+      );
+
+      socket.on("message", function (data) {
+        var messageList = document.getElementById("messages");
+        var messageItem = document.createElement("li");
+        messageItem.innerHTML = data.message;
+        messageList.appendChild(messageItem);
+      });
+
+      function sendMessage() {
+        var messageInput = document.getElementById("message_input");
+        var message = messageInput.value;
+        socket.emit("message", { message: message });
+        messageInput.value = "";
+      }
+    </script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Dashboard</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('dashboard') }}">Chat Dashboard</a></li>
+            <li><a href="{{ url_for('create_user') }}">Create User</a></li>
+            <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+            <li><a href="{{ url_for('login') }}">Log In</a></li>
+            <li><a href="{{ url_for('chat') }}">Chat</a></li>
+            <li><a href="{{ url_for('agentLogin') }}">Agent Login</a></li>
+            <li><a href="{{ url_for('agentSignup') }}">Agent Sign Up</a></li>
+            <li><a href="{{ url_for('check_database') }}">Check Database</a></li>
+            <li><a href="{{ url_for('check_empty_database') }}">Check Empty Database</a></li>
+        </ul>
+    </nav>
+
+    <h1>Welcome to the Chat Dashboard</h1>
+    <h2>User: {{ user_id }}</h2>
+    <h2>Chatroom: {{ chatroom_id }}</h2>
+    <hr>
+    <h3>Chat History</h3>
+    <ul>
+        {% for message in chat_history %}
+            <li>{{ message.user_id }}: {{ message.message }}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <h3>Send a Message</h3>
+    <form method="POST" action="/send_message">
+        <input type="text" name="message" placeholder="Type your message..." required>
+        <input type="hidden" name="chatroom_id" value="{{ chatroom_id }}">
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>
